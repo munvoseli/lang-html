@@ -20,6 +20,7 @@ typedef struct Mapping {
 
 static const Mapping ru_map[] = {
 	{ " ", 0x20 },
+	{ "+", 0x301 },
 	{ "m", 0x43c },{ "p", 0x43f },{ "b", 0x431 },
 	{ "f", 0x444 },{ "v", 0x432 },
 
@@ -103,6 +104,8 @@ int convert_file(char* fin) {
 		printf("%x %s\n", code, line);
 		     if (code == 0x7275) convert_ru(fop, line+i);
 		else if (code == 0x6672) convert_fr(fop, line+i);
+		else if (code == 0x6c61)
+			fprintf(fop, "<p>%s</p>", line+i);
 		else if (code == 0x696d)
 			fprintf(fop, "<img src='https://mincerafter42.github.io/assets/egs-8831.gif' onclick='this.src=\"%s\";'>\n", line+i);
 		else if (code == 0) fprintf(fop, "<hr>");
